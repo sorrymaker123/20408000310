@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+        <bean id="3" class="spring.HelloSpring">
+        <property name="uerName" value="张三"></property>
+    </bean>
+
+    <bean id="4" class="spring.User1">
+    <constructor-arg name="id" value="123"></constructor-arg>
+        <constructor-arg name="name" value="张三"></constructor-arg>
+        <constructor-arg name="password" value="123"></constructor-arg>
+    </bean>
+    <bean id="5" class="spring.User2">
+        <property name="id" value="2"></property>
+        <property name="name" value="aaa"></property>
+        <property name="password" value="123"></property>
+    </bean>
+<bean id="6" class="spring.dao.impl.Userdaoimpl">
+</bean>
+    <bean id="7" class="spring.service.impl.Userserviceimpl">
+        <property name="userdao" ref="6"></property>
+    </bean>
+</beans>
+
