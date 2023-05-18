@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--envrioments:配置数据库连接环境信息，可以配置多个enviroment,通过defult属性切换不同的envrioment-->
+<mapper namespace="a">
+<select id="findById" parameterType="int"
+resultType="com.itheima.pojo.User">
+        select * from user where id=#{id}
+</select>
+        <select id="findById2" parameterType="int"
+                resultType="String">
+                select name from user where id=#{id}
+        </select>
+        <insert id="addUser" parameterType="com.itheima.pojo.User">
+                insert into user(id,name,age)values(#{id},#{name},#{age})
+        </insert>
+          <delete id="deleteUser" parameterType="Integer">
+                  delete from user where id=#{id}
+          </delete>
+    <update id="updateUser" parameterType="com.itheima.pojo.User">
+        update user set name=#{name},age=#{age} where id=#{id}
+    </update>
+    <select id="findcustomer" parameterType="com.itheima.pojo.Customer"
+            resultType="com.itheima.pojo.Customer">
+        select * from customer where 1=1
+        <if test="username != null and username != ''">
+            and username like concat('%',#{username},'%')
+        </if>
+        <if test="jobs != null and jobs != ''">
+            and jobs =#{jobs}
+        </if>
+    </select>
+    <select id="findCodeById" parameterType="Integer" resultType="IdCard">
+        select * from idcard where id=#{id}
+    </select>
+    <select id="findPersonById" parameterType="Integer" resultMap="with">
+        select person.*,idcard.code from person,idcard where person.card_id=idcard.id and person.id=#{id}
+    </select>
+    <resultMap id="with" type="person">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <association property="card"  javaType="IdCard">
+            <id property="id" column="card_id"/>
+            <result property="code" column="code"/>
+        </association>
+    </resultMap>
+</mapper>
